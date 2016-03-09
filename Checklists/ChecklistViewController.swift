@@ -21,7 +21,7 @@ class ChecklistViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return 100
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -29,7 +29,7 @@ class ChecklistViewController: UITableViewController {
         
         let label = cell.viewWithTag(1000) as! UILabel
         
-        switch indexPath.row {
+        switch indexPath.row % 5 {
         case 0:
             label.text = "Walk the dog"
         case 1:
