@@ -47,19 +47,24 @@ class ChecklistViewController: UITableViewController {
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     // get cell and label reference
     let cell = tableView.dequeueReusableCellWithIdentifier("ChecklistItem", forIndexPath: indexPath)
-    let label = cell.viewWithTag(1000) as! UILabel
     
     // update label text
-    label.text = rowitem[indexPath.row].text
+    let item = rowitem[indexPath.row]
     
-    // update accessory type
-    configureCheckmarkForCell(cell, indexPath: indexPath)
+    // update text and accessory type
+    configureTextForCell(cell, withCheckItem: item)
+    configureCheckmarkForCell(cell, withCheckItem: item)
     return cell
   }
   
-  func configureCheckmarkForCell(cell: UITableViewCell, indexPath: NSIndexPath) {
+  func configureTextForCell(cell: UITableViewCell, withCheckItem item: ChecklistItem) {
+    let label = cell.viewWithTag(1000) as! UILabel
+    label.text = item.text
+  }
+  
+  func configureCheckmarkForCell(cell: UITableViewCell, withCheckItem item: ChecklistItem) {
     // check to see if checkmark should be displayed
-    if (rowitem[indexPath.row].checked) {
+    if (item.checked) {
       cell.accessoryType = .Checkmark
     } else {
       cell.accessoryType = .None
@@ -69,9 +74,10 @@ class ChecklistViewController: UITableViewController {
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
     // get cell reference
     if let cell = tableView.cellForRowAtIndexPath(indexPath) {
+      let item = rowitem[indexPath.row]
       // flip accessory indicator and update type
-      rowitem[indexPath.row].checked = !rowitem[indexPath.row].checked
-      configureCheckmarkForCell(cell, indexPath: indexPath)
+      item.toggleChecked()
+      configureCheckmarkForCell(cell, withCheckItem: item)
     }
     // display short fadeout rather than staying selected
     tableView.deselectRowAtIndexPath(indexPath, animated: true)
