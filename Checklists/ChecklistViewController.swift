@@ -10,6 +10,10 @@ import UIKit
 
 class ChecklistViewController: UITableViewController {
   
+  var rowtext = ["Walk the dog", "Brush my teeth", "Learn iOS development", "Soccer practice", "Eat ice cream"]
+  
+  var rowchecked = [false, false, false, false, false]
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     // Do any additional setup after loading the view, typically from a nib.
@@ -21,7 +25,7 @@ class ChecklistViewController: UITableViewController {
   }
   
   override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return 100
+    return 5
   }
   
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -29,27 +33,15 @@ class ChecklistViewController: UITableViewController {
     
     let label = cell.viewWithTag(1000) as! UILabel
     
-    switch indexPath.row % 5 {
-    case 0:
-      label.text = "Walk the dog"
-    case 1:
-      label.text = "Brush my teeth"
-    case 2:
-      label.text = "Learn iOS development"
-    case 3:
-      label.text = "Soccer practice"
-    case 4:
-      label.text = "Eat ice cream"
-    default:
-      break
-    }
+    label.text = rowtext[indexPath.row]
     
     return cell
   }
   
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
     if let cell = tableView.cellForRowAtIndexPath(indexPath) {
-      if cell.accessoryType == .None {
+      rowchecked[indexPath.row] = !rowchecked[indexPath.row]
+      if rowchecked[indexPath.row] {
         cell.accessoryType = .Checkmark
       } else {
         cell.accessoryType = .None
