@@ -50,11 +50,7 @@ class ChecklistViewController: UITableViewController {
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
     if let cell = tableView.cellForRowAtIndexPath(indexPath) {
       rowchecked[indexPath.row] = !rowchecked[indexPath.row]
-      if rowchecked[indexPath.row] {
-        cell.accessoryType = .Checkmark
-      } else {
-        cell.accessoryType = .None
-      }
+      configureCheckmarkForCell(cell, indexPath: indexPath)
     }
     tableView.deselectRowAtIndexPath(indexPath, animated: true)
   }
