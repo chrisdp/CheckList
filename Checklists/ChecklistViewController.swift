@@ -11,10 +11,23 @@ import UIKit
 class ChecklistViewController: UITableViewController {
   
   // label text values
-  var rowtext = ["Walk the dog", "Brush my teeth", "Learn iOS development", "Soccer practice", "Eat ice cream"]
+  var rowitem = [ChecklistItem]()
   
-  // completed/not completed state
+  // dummy data (will be moved out later
+  var tempytext = ["Walk the dog", "Brush my teeth", "Learn iOS development", "Soccer practice", "Eat ice cream"]
   var rowchecked = [false, true, false, false, true]
+  
+  // set out our own init
+  required init?(coder aDecoder: NSCoder) {
+    // populate rowitem array with ChecklistItem objects and set there values with dummy data
+    for (index, value) in tempytext.enumerate() {
+      rowitem.append(ChecklistItem())
+      rowitem[index].text = value;
+      rowitem[index].checked = rowchecked[index]
+    }
+    super.init(coder: aDecoder)
+  }
+  
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -28,7 +41,7 @@ class ChecklistViewController: UITableViewController {
   
   override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     // determine how many items can be show
-    return rowtext.count
+    return rowitem.count
   }
   
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -37,7 +50,7 @@ class ChecklistViewController: UITableViewController {
     let label = cell.viewWithTag(1000) as! UILabel
     
     // update label text
-    label.text = rowtext[indexPath.row]
+    label.text = rowitem[indexPath.row].text
     
     // update accessory type
     configureCheckmarkForCell(cell, indexPath: indexPath)
@@ -46,7 +59,7 @@ class ChecklistViewController: UITableViewController {
   
   func configureCheckmarkForCell(cell: UITableViewCell, indexPath: NSIndexPath) {
     // check to see if checkmark should be displayed
-    if (rowchecked[indexPath.row]) {
+    if (rowitem[indexPath.row].checked) {
       cell.accessoryType = .Checkmark
     } else {
       cell.accessoryType = .None
@@ -57,7 +70,7 @@ class ChecklistViewController: UITableViewController {
     // get cell reference
     if let cell = tableView.cellForRowAtIndexPath(indexPath) {
       // flip accessory indicator and update type
-      rowchecked[indexPath.row] = !rowchecked[indexPath.row]
+      rowitem[indexPath.row].checked = !rowitem[indexPath.row].checked
       configureCheckmarkForCell(cell, indexPath: indexPath)
     }
     // display short fadeout rather than staying selected
