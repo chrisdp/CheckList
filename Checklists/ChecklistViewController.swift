@@ -28,6 +28,10 @@ class ChecklistViewController: UITableViewController {
     super.init(coder: aDecoder)
   }
   
+  // -------------------------------------------------- EVENT HANDLERS
+  @IBAction func addItem() {
+    
+  }
   
   override func viewDidLoad() {
     super.viewDidLoad()
