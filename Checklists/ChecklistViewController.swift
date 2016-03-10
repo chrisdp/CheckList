@@ -41,6 +41,7 @@ class ChecklistViewController: UITableViewController {
     tableView.insertRowsAtIndexPaths(indexPaths, withRowAnimation: .Automatic)
   }
   
+  // -------------------------------------------------- OVERRIDES
   override func viewDidLoad() {
     super.viewDidLoad()
     // Do any additional setup after loading the view, typically from a nib.
@@ -67,6 +68,16 @@ class ChecklistViewController: UITableViewController {
     configureTextForCell(cell, withCheckItem: item)
     configureCheckmarkForCell(cell, withCheckItem: item)
     return cell
+  }
+ 
+  override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+    
+    // remove the ChecklistItem at the matching index
+    rowitem.removeAtIndex(indexPath.row)
+    
+    // delete the corresponding row from the table view
+    let indexPaths = [indexPath]
+    tableView.deleteRowsAtIndexPaths(indexPaths, withRowAnimation: .Automatic)
   }
   
   func configureTextForCell(cell: UITableViewCell, withCheckItem item: ChecklistItem) {
