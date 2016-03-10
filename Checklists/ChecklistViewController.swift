@@ -12,7 +12,7 @@ class ChecklistViewController: UITableViewController {
   
   var rowtext = ["Walk the dog", "Brush my teeth", "Learn iOS development", "Soccer practice", "Eat ice cream"]
   
-  var rowchecked = [false, false, false, false, false]
+  var rowchecked = [false, true, false, false, true]
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -25,7 +25,7 @@ class ChecklistViewController: UITableViewController {
   }
   
   override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return 5
+    return rowtext.count
   }
   
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -35,7 +35,16 @@ class ChecklistViewController: UITableViewController {
     
     label.text = rowtext[indexPath.row]
     
+    configureCheckmarkForCell(cell, indexPath: indexPath)
     return cell
+  }
+  
+  func configureCheckmarkForCell(cell: UITableViewCell, indexPath: NSIndexPath) {
+    if (rowchecked[indexPath.row]) {
+        cell.accessoryType = .Checkmark
+    } else {
+      cell.accessoryType = .None
+    }
   }
   
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
