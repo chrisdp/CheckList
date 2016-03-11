@@ -51,7 +51,7 @@
         <!--Add Item-->
         <scene sceneID="L5y-4h-GI1">
             <objects>
-                <tableViewController id="RI8-fL-CEt" sceneMemberID="viewController">
+                <tableViewController id="RI8-fL-CEt" customClass="AddItemViewController" customModule="Checklists" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="phK-rO-kzX">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -72,8 +72,16 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Add Item" id="Cc3-CB-jcG">
-                        <barButtonItem key="leftBarButtonItem" title="Item" systemItem="cancel" id="ehJ-V4-tRa"/>
-                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="Fbh-gk-2KK"/>
+                        <barButtonItem key="leftBarButtonItem" title="Item" systemItem="cancel" id="ehJ-V4-tRa">
+                            <connections>
+                                <action selector="cancel" destination="RI8-fL-CEt" id="W8y-0A-p00"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="Fbh-gk-2KK">
+                            <connections>
+                                <action selector="done" destination="RI8-fL-CEt" id="xqx-8B-8SK"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qto-T6-INh" userLabel="First Responder" sceneMemberID="firstResponder"/>
