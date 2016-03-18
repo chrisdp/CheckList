@@ -59,7 +59,7 @@
                         <sections>
                             <tableViewSection id="eSx-un-bGj">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="g49-7P-MhP">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="g49-7P-MhP">
                                         <rect key="frame" x="0.0" y="99" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="g49-7P-MhP" id="Ny9-sp-bui">
@@ -94,6 +94,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="textField" destination="oRx-pd-tG5" id="hVB-ot-mHZ"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qto-T6-INh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
