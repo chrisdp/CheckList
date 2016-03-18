@@ -73,12 +73,9 @@ class ChecklistViewController: UITableViewController, AddItemViewControllerDeleg
   }
   
   func configureCheckmarkForCell(cell: UITableViewCell, withCheckItem item: ChecklistItem) {
-    // check to see if checkmark should be displayed
-    if (item.checked) {
-      cell.accessoryType = .Checkmark
-    } else {
-      cell.accessoryType = .None
-    }
+    let label = cell.viewWithTag(1001) as! UILabel
+    // check to see if checkmark should be displayed and update label
+    label.text = (item.checked) ? "√" : ""
   }
   
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
