@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ChecklistViewController: UITableViewController, AddItemViewControllerDelegate {
+class ChecklistViewController: UITableViewController, ItemDetailViewControllerDelegate {
   
   // label text values
   var rowitem = [ChecklistItem]()
@@ -94,18 +94,18 @@ class ChecklistViewController: UITableViewController, AddItemViewControllerDeleg
     // check what segue is about to happen
     if (segue.identifier == "AddItem") {
       
-      // get the navigation controller and then get the actual AddItemViewController
+      // get the navigation controller and then get the actual ItemDetailViewController
       let navigationController = segue.destinationViewController as! UINavigationController
-      let controller = navigationController.topViewController as! AddItemViewController
+      let controller = navigationController.topViewController as! ItemDetailViewController
       
-      // set this controller as the delegate for the AddItemViewController during this sague
+      // set this controller as the delegate for the ItemDetailViewController during this sague
       controller.delegate = self
     } else if (segue.identifier == "EditItem") {
-      // get the navigation controller and then get the actual AddItemViewController
+      // get the navigation controller and then get the actual ItemDetailViewController
       let navigationController = segue.destinationViewController as! UINavigationController
-      let controller = navigationController.topViewController as! AddItemViewController
+      let controller = navigationController.topViewController as! ItemDetailViewController
       
-      // set this controller as the delegate for the AddItemViewController during this sague
+      // set this controller as the delegate for the ItemDetailViewController during this sague
       controller.delegate = self
       
       // set the ChecklistItem to edit
@@ -116,11 +116,11 @@ class ChecklistViewController: UITableViewController, AddItemViewControllerDeleg
   }
   
   // -------------------------------------------------- DELEGATE
-  func addItemViewControllerDidCancel(controller: AddItemViewController) {
+  func itemDetailViewControllerDidCancel(controller: ItemDetailViewController) {
     dismissViewControllerAnimated(true, completion: nil)
   }
   
-  func addItemViewController(controller: AddItemViewController, didFinishEditingItem item: ChecklistItem){
+  func itemDetailViewController(controller: ItemDetailViewController, didFinishEditingItem item: ChecklistItem){
     if let index = rowitem.indexOf(item) {
       let indexPath = NSIndexPath(forRow: index, inSection: 0)
       if let cell = tableView.cellForRowAtIndexPath(indexPath) {
@@ -130,7 +130,7 @@ class ChecklistViewController: UITableViewController, AddItemViewControllerDeleg
     dismissViewControllerAnimated(true, completion: nil)
   }
   
-  func addItemViewController(controller: AddItemViewController, didFinishAddingItem item: ChecklistItem) {
+  func itemDetailViewController(controller: ItemDetailViewController, didFinishAddingItem item: ChecklistItem) {
     let newRowIndex = rowitem.count
     
     rowitem.append(item)
