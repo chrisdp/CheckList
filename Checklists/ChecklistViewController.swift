@@ -28,19 +28,6 @@ class ChecklistViewController: UITableViewController, AddItemViewControllerDeleg
     super.init(coder: aDecoder)
   }
   
-  // -------------------------------------------------- EVENT HANDLERS
-  @IBAction func addItem() {
-    let newRowIndex = rowitem.count
-    let item = ChecklistItem()
-    item.text = "I am a new row"
-    item.checked = false
-    rowitem.append(item)
-    
-    let indexPath = NSIndexPath(forRow: newRowIndex, inSection: 0)
-    let indexPaths = [indexPath]
-    tableView.insertRowsAtIndexPaths(indexPaths, withRowAnimation: .Automatic)
-  }
-  
   // -------------------------------------------------- OVERRIDES
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -124,6 +111,14 @@ class ChecklistViewController: UITableViewController, AddItemViewControllerDeleg
   }
   
   func addItemViewController(controller: AddItemViewController, didFinishAddingItem item: ChecklistItem) {
+    let newRowIndex = rowitem.count
+    
+    rowitem.append(item)
+    
+    let indexPath = NSIndexPath(forRow: newRowIndex, inSection: 0)
+    let indexPaths = [indexPath]
+    tableView.insertRowsAtIndexPaths(indexPaths, withRowAnimation: .Automatic)
+    
     dismissViewControllerAnimated(true, completion: nil)
   }
   
