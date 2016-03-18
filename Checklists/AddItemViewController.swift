@@ -17,6 +17,7 @@ protocol AddItemViewControllerDelegate: class {
 class AddItemViewController: UITableViewController, UITextFieldDelegate {
   
   weak var delegate: AddItemViewControllerDelegate?
+  var itemToEdit: ChecklistItem?
   
   @IBOutlet weak var textField: UITextField!
   @IBOutlet weak var doneBarButton: UIBarButtonItem!
@@ -24,6 +25,15 @@ class AddItemViewController: UITableViewController, UITextFieldDelegate {
   override func viewWillAppear(animated: Bool) {
     super.viewWillAppear(animated)
     textField.becomeFirstResponder()
+  }
+  
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    if let item = itemToEdit {
+      title = "Edit Item"
+      textField.text = item.text
+      doneBarButton.enabled = true
+    }
   }
   
   @IBAction func cancel(){

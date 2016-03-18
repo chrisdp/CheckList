@@ -93,12 +93,25 @@ class ChecklistViewController: UITableViewController, AddItemViewControllerDeleg
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     // check what segue is about to happen
     if (segue.identifier == "AddItem") {
+      
       // get the navigation controller and then get the actual AddItemViewController
       let navigationController = segue.destinationViewController as! UINavigationController
       let controller = navigationController.topViewController as! AddItemViewController
       
       // set this controller as the delegate for the AddItemViewController during this sague
       controller.delegate = self
+    } else if (segue.identifier == "EditItem") {
+      // get the navigation controller and then get the actual AddItemViewController
+      let navigationController = segue.destinationViewController as! UINavigationController
+      let controller = navigationController.topViewController as! AddItemViewController
+      
+      // set this controller as the delegate for the AddItemViewController during this sague
+      controller.delegate = self
+      
+      // set the ChecklistItem to edit
+      if let indexPath = tableView.indexPathForCell(sender as! UITableViewCell ){
+        controller.itemToEdit = rowitem[indexPath.row]
+      }
     }
   }
   
