@@ -9,26 +9,32 @@
 import Foundation
 import UIKit
 
+// custom delegate
 protocol AddItemViewControllerDelegate: class {
   func addItemViewControllerDidCancel(controller: AddItemViewController)
   func addItemViewController(controller: AddItemViewController, didFinishAddingItem item: ChecklistItem)
+  func addItemViewController(controller: AddItemViewController, didFinishEditingItem item: ChecklistItem)
 }
 
 class AddItemViewController: UITableViewController, UITextFieldDelegate {
-  
+  // instance variables
   weak var delegate: AddItemViewControllerDelegate?
   var itemToEdit: ChecklistItem?
   
+  // UI refrances
   @IBOutlet weak var textField: UITextField!
   @IBOutlet weak var doneBarButton: UIBarButtonItem!
   
   override func viewWillAppear(animated: Bool) {
+    // set appear animation and first responder
     super.viewWillAppear(animated)
     textField.becomeFirstResponder()
   }
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    // check for ChecklistItem to be edited
+    // and update UI
     if let item = itemToEdit {
       title = "Edit Item"
       textField.text = item.text
@@ -41,11 +47,17 @@ class AddItemViewController: UITableViewController, UITextFieldDelegate {
   }
   
   @IBAction func done() {
-    let item = ChecklistItem()
-    item.text = textField.text!
-    item.checked = false
-    
-    delegate?.addItemViewController(self, didFinishAddingItem: item)
+    // check to see if ChecklistItem was passed in for editing
+    // or create a new one
+    if let item = itemToEdit {
+      item.text = textField.text!
+      delegate?.addItemViewController(self, didFinishEditingItem: item)
+    } else {
+      let item = ChecklistItem()
+      item.text = textField.text!
+      item.checked = false
+      delegate?.addItemViewController(self, didFinishAddingItem: item)
+    }
   }
   
   override func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {

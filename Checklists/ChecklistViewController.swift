@@ -120,6 +120,16 @@ class ChecklistViewController: UITableViewController, AddItemViewControllerDeleg
     dismissViewControllerAnimated(true, completion: nil)
   }
   
+  func addItemViewController(controller: AddItemViewController, didFinishEditingItem item: ChecklistItem){
+    if let index = rowitem.indexOf(item) {
+      let indexPath = NSIndexPath(forRow: index, inSection: 0)
+      if let cell = tableView.cellForRowAtIndexPath(indexPath) {
+        configureTextForCell(cell, withCheckItem: item)
+      }
+    }
+    dismissViewControllerAnimated(true, completion: nil)
+  }
+  
   func addItemViewController(controller: AddItemViewController, didFinishAddingItem item: ChecklistItem) {
     let newRowIndex = rowitem.count
     
