@@ -13,6 +13,11 @@ class AddItemViewController: UITableViewController {
   
   @IBOutlet weak var textField: UITextField!
   
+  override func viewWillAppear(animated: Bool) {
+    super.viewWillAppear(animated)
+    textField.becomeFirstResponder()
+  }
+  
   
   @IBAction func cancel(){
     dismissViewControllerAnimated(true, completion: nil)
