@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ChecklistViewController: UITableViewController {
+class ChecklistViewController: UITableViewController, AddItemViewControllerDelegate {
   
   // label text values
   var rowitem = [ChecklistItem]()
@@ -105,5 +105,27 @@ class ChecklistViewController: UITableViewController {
     // display short fadeout rather than staying selected
     tableView.deselectRowAtIndexPath(indexPath, animated: true)
   }
+  
+  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    // check what segue is about to happen
+    if (segue.identifier == "AddItem") {
+      // get the navigation controller and then get the actual AddItemViewController
+      let navigationController = segue.destinationViewController as! UINavigationController
+      let controller = navigationController.topViewController as! AddItemViewController
+      
+      // set this controller as the delegate for the AddItemViewController during this sague
+      controller.delegate = self
+    }
+  }
+  
+  // -------------------------------------------------- DELEGATE
+  func addItemViewControllerDidCancel(controller: AddItemViewController) {
+    dismissViewControllerAnimated(true, completion: nil)
+  }
+  
+  func addItemViewController(controller: AddItemViewController, didFinishAddingItem item: ChecklistItem) {
+    dismissViewControllerAnimated(true, completion: nil)
+  }
+  
 }
 
