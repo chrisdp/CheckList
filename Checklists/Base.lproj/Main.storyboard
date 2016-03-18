@@ -92,7 +92,7 @@
                                 <action selector="cancel" destination="RI8-fL-CEt" id="W8y-0A-p00"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="Fbh-gk-2KK">
+                        <barButtonItem key="rightBarButtonItem" enabled="NO" style="done" systemItem="done" id="Fbh-gk-2KK">
                             <connections>
                                 <action selector="done" destination="RI8-fL-CEt" id="xqx-8B-8SK"/>
                             </connections>
