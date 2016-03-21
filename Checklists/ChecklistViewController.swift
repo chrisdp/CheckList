@@ -10,28 +10,23 @@ import UIKit
 
 class ChecklistViewController: UITableViewController, ItemDetailViewControllerDelegate {
   
-  // label text values
-  var items = [ChecklistItem]()
-  
-  // dummy data (will be moved out later
-  var tempytext = ["Walk the dog", "Brush my teeth", "Learn iOS development", "Soccer practice", "Eat ice cream"]
-  var rowchecked = [false, true, false, false, true]
+  // ChecklistItem array
+  var items: [ChecklistItem]
   
   // set out our own init
   required init?(coder aDecoder: NSCoder) {
-    // populate items array with ChecklistItem objects and set there values with dummy data
-    for (index, value) in tempytext.enumerate() {
-      items.append(ChecklistItem())
-      items[index].text = value;
-      items[index].checked = rowchecked[index]
-    }
+    // initialize items array
+    items = [ChecklistItem]()
     super.init(coder: aDecoder)
+    // load existing items
+    loadCheckistItems()
     
+    // for debugging
     print("Documents folder is \(documentsDirectory())")
     print("Data file path is \(dataFilePath())")
   }
   
-  // -------------------------------------------------- OVERRIDES
+  // -------------------------------------------------- OVERRIDES/EVENT HANDLERS
   override func viewDidLoad() {
     super.viewDidLoad()
     // Do any additional setup after loading the view, typically from a nib.
@@ -143,6 +138,18 @@ class ChecklistViewController: UITableViewController, ItemDetailViewControllerDe
     data.writeToFile(dataFilePath(), atomically: true)
   }
   
+  func loadCheckistItems() {
+    let path =  dataFilePath()
+    // check for existing file
+    if NSFileManager.defaultManager().fileExistsAtPath(path) {
+      // load data from file and if successful populate items array
+      if let data = NSData(contentsOfFile: path) {
+        let unarchiver = NSKeyedUnarchiver(forReadingWithData: data)
+        items = unarchiver.decodeObjectForKey("ChecklistItems") as! [ChecklistItem]
+        unarchiver.finishDecoding()
+      }
+    }
+  }
   // -------------------------------------------------- DELEGATE
   func itemDetailViewControllerDidCancel(controller: ItemDetailViewController) {
     dismissViewControllerAnimated(true, completion: nil)
