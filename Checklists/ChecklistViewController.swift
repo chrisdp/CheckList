@@ -26,6 +26,9 @@ class ChecklistViewController: UITableViewController, ItemDetailViewControllerDe
       rowitem[index].checked = rowchecked[index]
     }
     super.init(coder: aDecoder)
+    
+    print("Documents folder is \(documentsDirectory())")
+    print("Data file path is \(dataFilePath())")
   }
   
   // -------------------------------------------------- OVERRIDES
@@ -113,6 +116,17 @@ class ChecklistViewController: UITableViewController, ItemDetailViewControllerDe
         controller.itemToEdit = rowitem[indexPath.row]
       }
     }
+  }
+  // -------------------------------------------------- DATA PERSISTENCE
+  func documentsDirectory() -> String {
+    // find the documents directory for the app
+    let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
+    return paths[0]
+  }
+  
+  func dataFilePath() -> String {
+    // return path to file
+    return (documentsDirectory() as NSString).stringByAppendingPathComponent("Checklists.plist")
   }
   
   // -------------------------------------------------- DELEGATE
