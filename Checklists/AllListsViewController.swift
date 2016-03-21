@@ -15,17 +15,7 @@ class AllListsViewController: UITableViewController, ListDetailViewContollerDele
   required init?(coder aDecoder: NSCoder) {
     lists = [Checklist]()
     super.init(coder: aDecoder)
-
-    // dummy data
-    lists.append(Checklist(name: "Birthdays"))
-    lists.append(Checklist(name: "Groceries"))
-    lists.append(Checklist(name: "Cool Apps"))
-    lists.append(Checklist(name: "To Do"))
-    for list in lists {
-      let item = ChecklistItem()
-      item.text = "Item for \(list.name)"
-      list.items.append(item)
-    }
+    loadCheckists()
   }
   
   override func viewDidLoad() {
@@ -133,5 +123,42 @@ class AllListsViewController: UITableViewController, ListDetailViewContollerDele
       }
     }
     dismissViewControllerAnimated(true, completion: nil)
+  }
+  
+  // -------------------------------------------------- DATA PERSISTENCE
+  func documentsDirectory() -> String {
+    // find the documents directory for the app
+    let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
+    return paths[0]
+  }
+  
+  func dataFilePath() -> String {
+    // return path to file
+    return (documentsDirectory() as NSString).stringByAppendingPathComponent("Checklists.plist")
+  }
+  
+  func saveCheclists() {
+    let data = NSMutableData()
+    let archiver = NSKeyedArchiver(forWritingWithMutableData: data)
+    
+    // encode array into writable binary data
+    archiver.encodeObject(lists, forKey: "Checklists")
+    archiver.finishEncoding()
+    
+    // save to file
+    data.writeToFile(dataFilePath(), atomically: true)
+  }
+  
+  func loadCheckists() {
+    let path =  dataFilePath()
+    // check for existing file
+    if NSFileManager.defaultManager().fileExistsAtPath(path) {
+      // load data from file and if successful populate items array
+      if let data = NSData(contentsOfFile: path) {
+        let unarchiver = NSKeyedUnarchiver(forReadingWithData: data)
+        lists = unarchiver.decodeObjectForKey("Checklists") as! [Checklist]
+        unarchiver.finishDecoding()
+      }
+    }
   }
 }
