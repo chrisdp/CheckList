@@ -65,6 +65,9 @@ class ListDetailViewController: UITableViewController, UITextFieldDelegate {
     return nil
   }
   
+  override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+  }
+  
   func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
     let oldText: NSString = textFeild.text!
     let newText: NSString = oldText.stringByReplacingCharactersInRange(range, withString: string)

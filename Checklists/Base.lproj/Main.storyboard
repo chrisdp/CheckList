@@ -214,6 +214,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="doneBarButton" destination="8jk-Ht-RxH" id="IKZ-3m-Dbx"/>
+                        <outlet property="textFeild" destination="fqZ-57-wA3" id="yOO-nb-J7h"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6UB-RB-NQJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
