@@ -13,6 +13,7 @@ class DataModel {
   
   init() {
     loadCheckists()
+    registerDefaults()
   }
   
   // -------------------------------------------------- DATA PERSISTENCE
@@ -50,5 +51,20 @@ class DataModel {
         unarchiver.finishDecoding()
       }
     }
+  }
+  
+  var indexOfSelectedChecklist: Int {
+    get {
+      return NSUserDefaults.standardUserDefaults().integerForKey("ChecklistIndex")
+    }
+    set {
+      NSUserDefaults.standardUserDefaults().setInteger(newValue, forKey: "ChecklistIndex")
+    }
+  }
+  
+  func registerDefaults() {
+    let dictionary = ["ChecklistIndex": -1]
+    
+    NSUserDefaults.standardUserDefaults().registerDefaults(dictionary)
   }
 }
