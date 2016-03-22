@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AllListsViewController: UITableViewController, ListDetailViewContollerDelegate {
+class AllListsViewController: UITableViewController, ListDetailViewContollerDelegate, UINavigationControllerDelegate {
 
   var dataModel: DataModel!
   
@@ -62,6 +62,9 @@ class AllListsViewController: UITableViewController, ListDetailViewContollerDele
   // -------------------------------------------------- EVENT HANLDERS
   
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    // save last selected checklist index
+    dataModel.indexOfSelectedChecklist = indexPath.row
+    
     let checklist = dataModel.lists[indexPath.row]
     performSegueWithIdentifier("ShowChecklist", sender: checklist)
   }
@@ -93,7 +96,21 @@ class AllListsViewController: UITableViewController, ListDetailViewContollerDele
     presentViewController(navigationController, animated: true, completion: nil)    
   }
   
-  // -------------------------------------------------- DELEGATE
+  override func viewDidAppear(animated: Bool) {
+    super.viewDidAppear(animated)
+    
+    navigationController?.delegate = self
+    
+    let index = dataModel.indexOfSelectedChecklist
+    if index >= 0 && index < dataModel.lists.count {
+      let checklist = dataModel.lists[index]
+      performSegueWithIdentifier("ShowChecklist", sender: checklist)
+    }
+  }
+  
+  // -------------------------------------------------- DELEGATES
+  
+  // ------------------------- ListDetailViewController
   func listDetailViewControllerDidCancel(controller: ListDetailViewController) {
     dismissViewControllerAnimated(true, completion: nil)
   }
@@ -117,5 +134,12 @@ class AllListsViewController: UITableViewController, ListDetailViewContollerDele
       }
     }
     dismissViewControllerAnimated(true, completion: nil)
+  }
+  
+  // ------------------------- NavigationController
+  func navigationController(navigationController: UINavigationController, willShowViewController viewController: UIViewController, animated: Bool) {
+    if viewController === self {
+      dataModel.indexOfSelectedChecklist = -1
+    }
   }
 }
