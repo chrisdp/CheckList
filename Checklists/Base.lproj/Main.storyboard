@@ -247,10 +247,18 @@
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" restorationIdentifier="iconImageView" translatesAutoresizingMaskIntoConstraints="NO" id="VXF-pv-CSi">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" restorationIdentifier="iconImageView" translatesAutoresizingMaskIntoConstraints="NO" id="VXF-pv-CSi">
                                                     <rect key="frame" x="523" y="4" width="36" height="36"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="36" id="9IZ-Aq-jb0"/>
+                                                        <constraint firstAttribute="height" constant="36" id="dTs-0k-aOo"/>
+                                                    </constraints>
                                                 </imageView>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="VXF-pv-CSi" firstAttribute="top" secondItem="q9L-vF-LjE" secondAttribute="top" constant="4" id="pbq-Sq-sct"/>
+                                                <constraint firstAttribute="trailing" secondItem="VXF-pv-CSi" secondAttribute="trailing" constant="8" id="zpJ-oU-Xac"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <segue destination="XVL-3v-DZ9" kind="show" identifier="PickIcon" id="IVz-jH-NEi"/>
