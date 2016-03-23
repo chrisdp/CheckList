@@ -15,16 +15,18 @@ protocol ListDetailViewContollerDelegate: class {
   func listDetailViewController(controller: ListDetailViewController, didFinishEditingChecklist checklist: Checklist)
 }
 
-class ListDetailViewController: UITableViewController, UITextFieldDelegate {
+class ListDetailViewController: UITableViewController, UITextFieldDelegate, IconPickerViewControllerDelegate {
   
   // UI refrances
   @IBOutlet weak var textFeild: UITextField!
   @IBOutlet weak var doneBarButton: UIBarButtonItem!
+  @IBOutlet weak var iconImageView: UIImageView!
   
   weak var delegate: ListDetailViewContollerDelegate?
   
   // instance variables
   var checklistToEdit: Checklist?
+  var iconName = "Folder"
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -34,7 +36,10 @@ class ListDetailViewController: UITableViewController, UITextFieldDelegate {
       title = "Edit Checklist"
       textFeild.text = checklist.name
       doneBarButton.enabled = true
+      iconName = checklist.iconName
     }
+    
+    iconImageView.image = UIImage(named: iconName)
   }
   
   override func viewWillAppear(animated: Bool) {
@@ -53,10 +58,19 @@ class ListDetailViewController: UITableViewController, UITextFieldDelegate {
     // or create a new one
     if let checklist = checklistToEdit {
       checklist.name = textFeild.text!
+      checklist.iconName = iconName
       delegate?.listDetailViewController(self, didFinishEditingChecklist: checklist)
     } else {
       let checklist = Checklist(name: textFeild.text!)
+      checklist.iconName = iconName
       delegate?.listDetailViewController(self, didFinishAddingChecklist: checklist)
+    }
+  }
+  
+  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    if segue.identifier == "PickIcon" {
+      let controller = segue.destinationViewController as! IconPickerViewController
+      controller.delegate = self
     }
   }
   
@@ -77,5 +91,11 @@ class ListDetailViewController: UITableViewController, UITextFieldDelegate {
     // emable done button only when there is text
     doneBarButton.enabled = (newText.length > 0)
     return true
+  }
+  
+  func iconPicker(picker: IconPickerViewController, didPickIcon iconName: String) {
+    self.iconName = iconName
+    iconImageView.image = UIImage(named: iconName)
+    navigationController?.popViewControllerAnimated(true)
   }
 }

@@ -219,7 +219,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Name of the List" textAlignment="natural" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fqZ-57-wA3">
-                                                    <rect key="frame" x="8" y="13" width="584" height="30"/>
+                                                    <rect key="frame" x="8" y="0.0" width="584" height="43"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
                                                     <connections>
@@ -278,6 +278,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="doneBarButton" destination="8jk-Ht-RxH" id="IKZ-3m-Dbx"/>
+                        <outlet property="iconImageView" destination="VXF-pv-CSi" id="Dn2-WN-8YI"/>
                         <outlet property="textFeild" destination="fqZ-57-wA3" id="yOO-nb-J7h"/>
                     </connections>
                 </tableViewController>
