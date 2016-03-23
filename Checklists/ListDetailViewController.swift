@@ -61,8 +61,13 @@ class ListDetailViewController: UITableViewController, UITextFieldDelegate {
   }
   
   override func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
-    // disable the ability to click on the cell directly
-    return nil
+    if indexPath.section == 1 {
+      // 1 == icon picker
+      return indexPath
+    } else {
+      // disable the ability to click on the cell directly
+      return nil
+    }
   }
   
   func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
