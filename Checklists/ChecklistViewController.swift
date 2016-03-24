@@ -72,6 +72,7 @@ class ChecklistViewController: UITableViewController, ItemDetailViewControllerDe
     let label = cell.viewWithTag(1001) as! UILabel
     // check to see if checkmark should be displayed and update label
     label.text = (item.checked) ? "√" : ""
+    label.textColor = view.tintColor
   }
   
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
