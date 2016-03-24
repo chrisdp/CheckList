@@ -24,7 +24,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let controller = navigationController.viewControllers[0] as! AllListsViewController
     
     controller.dataModel = dataModel
+    
     return true
+  }
+  
+  func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
+    print("Local notification: \(notification)")
   }
   
   func applicationWillResignActive(application: UIApplication) {
