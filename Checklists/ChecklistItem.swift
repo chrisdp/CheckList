@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 class ChecklistItem: NSObject, NSCoding {
   var text = ""
@@ -14,10 +15,6 @@ class ChecklistItem: NSObject, NSCoding {
   var dueDate = NSDate()
   var shouldRemind = false
   var itemId: Int
-  
-  func toggleChecked() {
-    checked = !checked
-  }
   
   func encodeWithCoder(aCoder: NSCoder) {
     // items to encode
@@ -40,5 +37,25 @@ class ChecklistItem: NSObject, NSCoding {
   override init() {
     itemId = DataModel.nextChecklistItemID()
     super.init()
+  }
+  
+  func toggleChecked() {
+    checked = !checked
+  }
+  
+  func scheduleNotification() {
+    if shouldRemind && dueDate.compare(NSDate()) != .OrderedAscending {
+      
+      let localNotification = UILocalNotification()
+      localNotification.fireDate = dueDate
+      localNotification.timeZone = NSTimeZone.defaultTimeZone()
+      localNotification.alertBody = text
+      localNotification.soundName = UILocalNotificationDefaultSoundName
+      localNotification.userInfo = ["ItemID": itemId]
+      
+      UIApplication.sharedApplication().scheduleLocalNotification(localNotification)
+
+      print("Scheduled notification \(localNotification) for itemID \(itemId)")
+    }
   }
 }
