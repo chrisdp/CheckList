@@ -51,19 +51,6 @@ class ItemDetailViewController: UITableViewController, UITextFieldDelegate {
     updateDueDateLabel()
   }
   
-  func updateDueDateLabel() {
-    let formatter = NSDateFormatter()
-    formatter.dateStyle = .MediumStyle
-    formatter.timeStyle = .ShortStyle
-    dueDateLabel.text = formatter.stringFromDate(dueDate)
-  }
-  
-  func showDatePicker() {
-    datePickerVisible = true
-    let indexPathDatePicker = NSIndexPath(forRow: 2, inSection: 1)
-    tableView.insertRowsAtIndexPaths([indexPathDatePicker], withRowAnimation: .Fade)
-  }
-  
   @IBAction func cancel(){
     delegate?.itemDetailViewControllerDidCancel(self)
   }
@@ -130,6 +117,20 @@ class ItemDetailViewController: UITableViewController, UITextFieldDelegate {
       indexPath = NSIndexPath(forRow: 0, inSection: indexPath.section)
     }
     return super.tableView(tableView, indentationLevelForRowAtIndexPath: indexPath)
+  }
+  
+  func updateDueDateLabel() {
+    let formatter = NSDateFormatter()
+    formatter.dateStyle = .MediumStyle
+    formatter.timeStyle = .ShortStyle
+    dueDateLabel.text = formatter.stringFromDate(dueDate)
+  }
+  
+  func showDatePicker() {
+    datePickerVisible = true
+    let indexPathDatePicker = NSIndexPath(forRow: 2, inSection: 1)
+    tableView.insertRowsAtIndexPaths([indexPathDatePicker], withRowAnimation: .Fade)
+    datePicker.setDate(dueDate, animated: false)
   }
   
   override func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
