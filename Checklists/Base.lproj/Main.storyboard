@@ -120,6 +120,9 @@
                                                 </label>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="hWL-eK-7ns">
                                                     <rect key="frame" x="538" y="6" width="51" height="31"/>
+                                                    <connections>
+                                                        <action selector="shouldRemindTogged:" destination="RI8-fL-CEt" eventType="valueChanged" id="N5g-P9-agL"/>
+                                                    </connections>
                                                 </switch>
                                             </subviews>
                                             <constraints>

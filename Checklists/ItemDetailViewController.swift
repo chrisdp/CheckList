@@ -80,6 +80,16 @@ class ItemDetailViewController: UITableViewController, UITextFieldDelegate {
     updateDueDateLabel()
   }
   
+  @IBAction func shouldRemindTogged(switchControl: UISwitch) {
+    textField.resignFirstResponder()
+    
+    if switchControl.on {
+      // ask the user for notification access
+      let notificationSettings = UIUserNotificationSettings(forTypes: [.Alert, .Sound], categories: nil)
+      UIApplication.sharedApplication().registerUserNotificationSettings(notificationSettings)
+    }
+  }
+  
   // date picker methods
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     if indexPath.section == 1 && indexPath.row == 2 {
